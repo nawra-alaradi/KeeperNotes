@@ -1,17 +1,35 @@
 import AddNote from "./AddNote";
 import style from "../styles/Body.module.css";
 import Note from "./Note";
-import {notes} from "../notes";
+import React, {useState} from "react";
+import type { NoteProps } from "../interfaces/NoteProps";
 
 export default function Body() {
+const [notesList, setNotesList] = useState<NoteProps[]>([]);
 
+function handleAddNote(title: string, content: string) {
+  const newNote: NoteProps = {
+    Id: notesList.length + 1, 
+    title: title,
+    content: content
+  };
+  console.log("fired Add Note: ", newNote);
+  setNotesList([...notesList, newNote]);
+
+  }
+
+
+function handleDeleteNote(id: number) {
+  const updatedNotes = notesList.filter((note) => note.Id !== id);
+  setNotesList(updatedNotes);
+}
   
   return (
     <div className={style.parentContainer}>
       <div className={style.container}>
-        <AddNote />
+        <AddNote onAddNote={handleAddNote}/>
         <div className={style.notescontainer}>
-          {notes.map((note) => <Note key={note.key}  title={note.title} content={note.content} />)}
+          {notesList.map((note) => <Note key={note.Id}  title={note.title} content={note.content} onDelete={handleDeleteNote} Id={note.Id}/>)}
 
         </div>
       </div>

@@ -1,7 +1,11 @@
 interface NoteProps {
+  Id: number; // Optional prop
   title: string;
-  key: number; // Optional prop
   content: string;
-   onClick: (event: React.MouseEvent) => void;
 }
-export default NoteProps;
+
+interface AddNoteProps {
+  onAddNote: (title: string, content: string) => void;
+}
+
+export type { NoteProps, AddNoteProps };
