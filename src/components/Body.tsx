@@ -7,7 +7,12 @@ import type { NoteProps } from "../interfaces/NoteProps";
 export default function Body() {
 const [notesList, setNotesList] = useState<NoteProps[]>([]);
 
-function handleAddNote(title: string, content: string) {
+function handleAddNote(title: string, content: string):boolean {
+
+  if(title.trim() === "" || content.trim() === "") {
+    alert("Title and Content cannot be empty!");
+    return false; 
+  }
   const newNote: NoteProps = {
     Id: notesList.length + 1, 
     title: title,
@@ -15,6 +20,7 @@ function handleAddNote(title: string, content: string) {
   };
   console.log("fired Add Note: ", newNote);
   setNotesList([...notesList, newNote]);
+    return true; 
 
   }
 

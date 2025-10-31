@@ -5,7 +5,7 @@ interface NoteProps {
 }
 
 interface AddNoteProps {
-  onAddNote: (title: string, content: string) => void;
+  onAddNote: (title: string, content: string) => boolean;
 }
 
 export type { NoteProps, AddNoteProps };

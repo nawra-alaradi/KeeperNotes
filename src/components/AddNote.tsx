@@ -1,10 +1,14 @@
 import type { AddNoteProps } from "../interfaces/NoteProps";
 import style from "../styles/AddNote.module.css";
 import React, { useState } from "react";
+import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab';
+import { Zoom } from "@mui/material";
 
 export default function AddNote({ onAddNote }: AddNoteProps) {
-  const [title, setTitle] = useState<string>("");
+    const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -20,23 +24,33 @@ export default function AddNote({ onAddNote }: AddNoteProps) {
   }
 
   function handleClick() {
-    onAddNote(title, content);
+   const result: boolean = onAddNote(title, content);
+if(result){
     setTitle("");
-    setContent(""); 
+    setContent("");
+        setIsExpanded(false);
+
+   }
   }
 
   return (
     <div className={style.card}>
-      <input type="text" placeholder="Title" value={title} 
-      onChange={handleChange} name="title"/>
+     { isExpanded && <input type="text" placeholder="Title" value={title} 
+      onChange={handleChange} name="title" />}
       <textarea
+      onClick = {() => setIsExpanded(true)}
         placeholder="Take a note..."
         spellCheck="true"
         value={content}
         onChange={handleChange}
         name="content"
+        rows = {isExpanded ? 3 : 1}
       />
-      <button onClick={handleClick}>Add</button>
+      <Zoom in={isExpanded}>
+      <Fab onClick={handleClick}>
+        <AddIcon />
+      </Fab>
+      </Zoom>
     </div>
   );
 }

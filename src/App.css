@@ -22,6 +22,8 @@ body{
   flex: 1;
   padding: 20px;
   overflow-y: auto;
+background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+
 }
 /*
 .logo {
